@@ -1,12 +1,11 @@
 package file;
 
-import game.ActiveBlock;
-import game.Block;
 import game.Board;
-import game.EmptyBlock;
-import game.HumanState;
-import game.PCState;
 import game.State;
+import game.Turn;
+import game.blocks.ActiveBlock;
+import game.blocks.Block;
+import game.blocks.EmptyBlock;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -14,9 +13,9 @@ import java.io.IOException;
 
 public class FileState {
 	private String name;
-	private boolean turn;
+	private Turn turn;
 	
-	public FileState(String name,boolean turn) {
+	public FileState(String name,Turn turn) {
 		this.name = name;
 		this.turn = turn;
 	}
@@ -49,13 +48,13 @@ public class FileState {
 					else
 						board[j][i] = new EmptyBlock();
 				}
-				file.read();
+				file.read();	// Lee el \n
 			}
 			
-			if ( turn ) 
-				return new PCState(new Board(board),Integer.parseInt(points1),Integer.parseInt(points2));
+			if ( turn == Turn.HUMAN ) 
+				return new State(new Board(board),Integer.parseInt(points2),Integer.parseInt(points1));
 			else
-				return new HumanState(new Board(board),Integer.parseInt(points1),Integer.parseInt(points2));
+				return new State(new Board(board),Integer.parseInt(points1),Integer.parseInt(points2));
 			
 		} catch (FileNotFoundException e) {
 			System.err.println("No existe archivo");
@@ -64,5 +63,4 @@ public class FileState {
 		}
 		return null;
 	}
-	
 }
