@@ -78,4 +78,11 @@ public class NodeTree {
 			return String.valueOf(hValue);
 		}
 	}
+	
+	public NodeTree getFirst(){
+		return children.get(0);
+	}
+	public Point getPoint(){
+		return point; 
+	}
 }

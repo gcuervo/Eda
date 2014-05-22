@@ -78,7 +78,7 @@ public class MiniMax {
 			} else {
 				int h = minNode(p, actual, maxHvalue, Integer.MAX_VALUE, 1,
 						actualNode);
-				if (h >= maxHvalue) {
+				if (h > maxHvalue) {
 					ans = p;
 					maxHvalue = h;
 					selectedNode = actualNode;
@@ -91,7 +91,11 @@ public class MiniMax {
 			}
 		}
 		currentNode.setHvalue(maxHvalue);
+		if(selectedNode==null)
+			selectedNode=currentNode.getFirst();
 		selectedNode.setSelected();
+		if(ans==null)
+			ans=selectedNode.getPoint();
 		return ans;
 	}
 
@@ -117,7 +121,7 @@ public class MiniMax {
 			} else {
 				int h = maxNode(point, actual, alpha, beta, height + 1,
 						actualNode);
-				if (h <= minHvalue) {
+				if (h < minHvalue) {
 					minHvalue = h;
 					selectedNode = actualNode;
 				}
@@ -131,6 +135,8 @@ public class MiniMax {
 				return minHvalue;
 			}
 		}
+		if(selectedNode==null)
+			selectedNode=currentNode.getFirst();
 		selectedNode.setSelected();
 		return minHvalue;
 	}
@@ -156,7 +162,7 @@ public class MiniMax {
 			} else {
 				int h = minNode(point, actual, alpha, beta, height + 1,
 						actualNode);
-				if (h >= maxHvalue) {
+				if (h > maxHvalue) {
 					maxHvalue = h;
 					selectedNode = actualNode;
 				}
@@ -170,6 +176,8 @@ public class MiniMax {
 			}
 
 		}
+		if(selectedNode==null)
+			selectedNode=currentNode.getFirst();
 		selectedNode.setSelected();
 		return maxHvalue;
 	}
